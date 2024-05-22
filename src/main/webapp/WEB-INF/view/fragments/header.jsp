@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Angelika
-  Date: 07.06.2021
-  Time: 13:20
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -43,12 +37,6 @@
                                     <c:out value="${category.categoryName}"/></a>
                             </c:forEach>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="${pageContext.request.contextPath}/online-shop?command=promotions">
-                            <fmt:message bundle="${loc}" key="language.promotions"/>
-                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/online-shop?command=contacts">

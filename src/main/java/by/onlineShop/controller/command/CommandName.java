@@ -27,4 +27,5 @@ public final class CommandName {
     public static final String EDIT_PRODUCT_COMMAND = "editProduct";
     public static final String CONFIRM_EDIT_PRODUCT = "confirmEditProduct";
     public static final String CONFIRM_ADDING_PROMOTION_COMMAND = "confirmAddingPromotion";
+    public static final String GOOD = "good";
 }

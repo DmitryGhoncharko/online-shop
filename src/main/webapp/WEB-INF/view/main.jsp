@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Angelika
-  Date: 06.06.2021
-  Time: 21:36
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -20,8 +14,6 @@
 <fmt:setBundle basename="information" var="info"/>
 
 <div class="container">
-    <h3 class="pb-3 my-sm-3"><fmt:message bundle="${info}" key="information.name"/>: <fmt:message bundle="${loc}"
-                                                                                                  key="language.info"/>.</h3>
     <div class="row justify-content-center">
         <img src="static/images/online-shop.jpg" class="img-fluid" width="500" height="200">
     </div>

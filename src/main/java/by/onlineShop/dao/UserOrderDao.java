@@ -25,4 +25,6 @@ public interface UserOrderDao extends Dao<UserOrder> {
      */
     void updateStatusById(long id, String status) throws DaoException;
 
+    public void deleteByUserId(Long userId) throws DaoException;
+
 }

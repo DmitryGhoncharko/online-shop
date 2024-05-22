@@ -5,8 +5,11 @@ import by.onlineShop.controller.command.CommandResult;
 import by.onlineShop.controller.command.CommandResultType;
 import by.onlineShop.controller.context.RequestContext;
 import by.onlineShop.controller.context.RequestContextHelper;
+import by.onlineShop.dao.DaoFactory;
+import by.onlineShop.dao.UserOrderDao;
 import by.onlineShop.entity.Order;
 import by.onlineShop.entity.User;
+import by.onlineShop.exeptions.DaoException;
 import by.onlineShop.exeptions.ServiceException;
 import by.onlineShop.service.OrderService;
 import by.onlineShop.service.ServiceFactory;
@@ -18,7 +21,7 @@ import java.util.Optional;
 
 public class ConfirmOrderCommand implements Command {
     private static final String ADD_ORDER_PAGE = "WEB-INF/view/addOrder.jsp";
-    private static final String MY_ORDERS_PAGE = "command=myOrders";
+    private static final String MY_ORDERS_PAGE = "command=good";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
     private static final String ERROR_MESSAGE = "errorMessage";
     private static final String ADDRESS = "address";
@@ -34,44 +37,19 @@ public class ConfirmOrderCommand implements Command {
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
-
-        Optional<String> address = Optional.ofNullable(requestContext.getRequestParameter(ADDRESS));
-        Optional<String> deliveryDate = Optional.ofNullable(requestContext.getRequestParameter(DELIVERY_DATE));
-        Optional<String> cardholderName = Optional.ofNullable(requestContext.getRequestParameter(CARDHOLDER_NAME));
-        Optional<String> cvvString = Optional.ofNullable(requestContext.getRequestParameter(CVV));
-        Optional<String> cardNumberString = Optional.ofNullable(requestContext.getRequestParameter(CARD_NUMBER));
-        Optional<String> monthString = Optional.ofNullable(requestContext.getRequestParameter(MONTH));
-        Optional<String> yearString = Optional.ofNullable(requestContext.getRequestParameter(YEAR));
-
+        User user = (User) requestContext.getSessionAttribute(USER);
+        UserOrderDao userOrderDao = DaoFactory.getInstance().getUserOrderDao();
         try {
-            User user = (User) requestContext.getSessionAttribute(USER);
-            long userId = user.getId();
-            OrderService orderService = ServiceFactory.getInstance().getOrderService();
-            List<Order> orders = orderService.retrieveOrdersByUserWhereProductStatusTrue(userId);
-            double totalPrice = orderService.calculateTotalCost(orders);
+            userOrderDao.deleteByUserId(user.getId());
+        } catch (DaoException e) {
+            return new CommandResult(MY_ORDERS_PAGE, CommandResultType.REDIRECT);
 
-            if (isPresent(address, deliveryDate, cardholderName, cvvString, cardNumberString, monthString, yearString)) {
-
-                UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
-                boolean result = userOrderService.addNewUserOrder(orders, address.get(), deliveryDate.get(), cardholderName.get(),
-                        cvvString.get(), cardNumberString.get(), monthString.get(), yearString.get(), totalPrice);
-                if (result) {
-                    helper.updateRequest(requestContext);
-                    return new CommandResult(MY_ORDERS_PAGE, CommandResultType.REDIRECT);
-                }
-            }
-            requestContext.addRequestAttribute(TOTAL_COST, totalPrice);
-            requestContext.addRequestAttribute(ERROR_MESSAGE, true);
-            helper.updateRequest(requestContext);
-            return new CommandResult(ADD_ORDER_PAGE, CommandResultType.FORWARD);
-        } catch (ServiceException e) {
-            return new CommandResult(ERROR_PAGE, CommandResultType.FORWARD);
         }
+        return new CommandResult(MY_ORDERS_PAGE, CommandResultType.REDIRECT);
+
+
+    }
     }
 
-    public boolean isPresent(Optional<String> address, Optional<String> deliveryDate, Optional<String> cardholderName,
-                             Optional<String> cvv, Optional<String> cardNumber, Optional<String> month, Optional<String> year) {
-        return address.isPresent() && deliveryDate.isPresent() && cardholderName.isPresent() && cvv.isPresent()
-                && cardNumber.isPresent() && month.isPresent() && year.isPresent();
-    }
-}
+
+

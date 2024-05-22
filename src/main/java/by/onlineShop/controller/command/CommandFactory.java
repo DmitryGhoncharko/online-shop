@@ -36,6 +36,7 @@ public class CommandFactory {
         commands.put(CommandName.EDIT_PRODUCT_COMMAND, new GoToEditProductCommand());
         commands.put(CommandName.CONFIRM_EDIT_PRODUCT, new ConfirmProductChangeCommand());
         commands.put(CommandName.CONFIRM_ADDING_PROMOTION_COMMAND, new ConfirmAddingPromotionCommand());
+        commands.put(CommandName.GOOD,new GoodCommand());
     }
 
     public static CommandFactory getInstance() {

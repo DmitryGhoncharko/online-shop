@@ -33,4 +33,8 @@ public class UserOrderDaoImpl extends AbstractDao<UserOrder> implements UserOrde
         return executeInsertQuery(SAVE_USER_ORDER_QUERY, userOrder.getAddress(), userOrder.getOrderDate(),
                 userOrder.getDeliveryDate(), userOrder.getStatus());
     }
+    @Override
+    public void deleteByUserId(Long userId) throws DaoException{
+        executeUpdateQuery("delete from Orders where user_id = ? ", userId);
+    }
 }
