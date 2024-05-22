@@ -53,11 +53,6 @@
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/online-shop?command=addProduct"><fmt:message bundle="${loc}" key="language.addProduct"/></a>
-                                <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/online-shop?command=addPromotion"><fmt:message bundle="${loc}" key="language.addPromotion"/></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/online-shop?command=viewOrders"><fmt:message bundle="${loc}" key="language.viewOrders"/></a>
                             </div>
                         </li>
                     </c:if>
@@ -136,8 +131,7 @@
                                     <a class="dropdown-item"
                                        href="${pageContext.request.contextPath}/online-shop?command=profile">
                                         <fmt:message bundle="${loc}" key="language.profile"/></a>
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/online-shop?command=myOrders"><fmt:message bundle="${loc}"
-                                                                                   key="language.myOrders"/></a>
+
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
                                        href="${pageContext.request.contextPath}/online-shop?command=logOut">
