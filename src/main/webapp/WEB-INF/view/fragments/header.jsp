@@ -6,7 +6,6 @@
     <jsp:include page="headerLinks.jsp"/>
 </head>
 
-
 <header>
     <fmt:setLocale value="${sessionScope.language}"/>
     <fmt:setBundle basename="localization.language" var="loc"/>
@@ -19,10 +18,12 @@
                 <ul class="navbar-nav mr-auto">
                     <a class="navbar-brand" style="font-size: 22px">
                         <fmt:message bundle="${info}" key="information.name"/>
+                        <img src="${pageContext.request.contextPath}/static/images/lakogalogo(logotip2021)_10.jpeg" alt="Logo" width="10%" height="70%">
                     </a>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/online-shop?command=main">
                             <fmt:message bundle="${loc}" key="language.home"/>
+
                         </a>
                     </li>
 
